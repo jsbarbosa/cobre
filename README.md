@@ -54,14 +54,6 @@ http://0.0.0.0:8001/
 
 Go to `http://0.0.0.0:8001/docs` to use the Swagger documentation
 
-## API Endpoints
-| Method | Endpoint               | Description                        |
-| ------ | ---------------------- | ---------------------------------- |
-| POST   | `/api/v1/evaluate`     | Predicts if a transaction is fraud |
-| POST   | `/api/v1/notify/slack` | Sends a fraud alert to Slack       |
-| GET    | `/api/v1/health`       | Checks API health status           |
-| GET    | `/api/v1/version`      | Returns the version of the service |
-
 ## Data storage
 Every time the `/api/v1/evaluate` endpoint is called:
 - The transaction details are stored in a PostgreSQL table called fraud_details.
@@ -74,3 +66,29 @@ Every time the `/api/v1/evaluate` endpoint is called:
         - `created_at`: When the record was inserted.
         - `updated_at`: When the record was last modified.
         - `deleted_at`: Supports soft deletes for data integrity.
+        
+## Model details
+![Model](https://github.com/jsbarbosa/cobre/blob/main/pipeline.png)
+
+- The transaction and identity data is merged together using the `TransactionID` property
+- Correlated properties are dropped
+- Columns are split based on their behavior:
+    - `VXXX` columns -> PCA (40 % dimensional reduction)
+    - Frequency encoded: categorical variables with high cardinality
+    - One hot encoded: categorical variables with low cardinality
+    - Time encoded: uses the `TransactionDT` property and calculates: `day`, `time`, `day_of_week`, `day_of_year`
+    - Remainder: numerical variables
+- Missing values are imputed
+- Classification
+
+
+## API Endpoints
+| Method | Endpoint               | Description                        |
+| ------ | ---------------------- | ---------------------------------- |
+| POST   | `/api/v1/evaluate`     | Predicts if a transaction is fraud |
+| POST   | `/api/v1/notify/slack` | Sends a fraud alert to Slack       |
+| GET    | `/api/v1/health`       | Checks API health status           |
+| GET    | `/api/v1/version`      | Returns the version of the service |
+
+
+![API](https://github.com/jsbarbosa/cobre/blob/main/API.png)
