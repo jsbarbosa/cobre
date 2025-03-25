@@ -22,7 +22,24 @@ IDENTITY_COLUMN_TYPES: dict = {
     'id_24': 'float32', 
     'id_25': 'float32', 
     'id_26': 'float32', 
-    'id_32': 'float32'
+    'id_32': 'float32',
+    'id_12': object,
+    'id_15': object, 
+    'id_16': object,
+    'id_23': object,
+    'id_27': object,
+    'id_28': object,
+    'id_29': object,
+    'id_30': object,
+    'id_31': object,
+    'id_33': object, 
+    'id_34': object, 
+    'id_35': object, 
+    'id_36': object, 
+    'id_37': object,
+    'id_38': object,
+    'DeviceType': object,
+    'DeviceInfo': object
 }
 
 
@@ -38,7 +55,21 @@ TRANSACTION_COLUMN_TYPES: dict = dict(
         ('addr1', 'float32'),
         ('addr2', 'float32'), 
         ('dist1', 'float32'), 
-        ('dist2', 'float32')
+        ('dist2', 'float32'),
+        ('ProductCD', object),
+        ('card4', object),
+        ('card6', object),
+        ('P_emaildomain', object), 
+        ('R_emaildomain', object), 
+        ('M1', object), 
+        ('M2', object), 
+        ('M3', object), 
+        ('M4', object), 
+        ('M5', object), 
+        ('M6', object),
+        ('M7', object), 
+        ('M8', object), 
+        ('M9', object),
     ] + [(f'C{i + 1}', 'float32') for i in range(14)]
     + [(f'D{i + 1}', 'float32') for i in range(15)] 
     + [(f'V{i + 1}', 'float32') for i in range(339)]

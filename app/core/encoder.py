@@ -23,7 +23,7 @@ class FrequencyEncoder(BaseEstimator, TransformerMixin):
         )
 
     def get_feature_names_out(self, *args):
-        return args
+        return list(self._map.keys())
 
 
 class DateEncoder(BaseEstimator, TransformerMixin):
@@ -39,8 +39,9 @@ class DateEncoder(BaseEstimator, TransformerMixin):
                 ((in_days % 1) * 24).rename('time'),
                 (in_days % 7).astype(int).rename('day_of_week'),
                 (in_days % 31).astype(int).rename('day_of_month')
-            ]
-        )
+            ],
+            axis=1
+        ).values
 
     def get_feature_names_out(self, *args):
         return [
